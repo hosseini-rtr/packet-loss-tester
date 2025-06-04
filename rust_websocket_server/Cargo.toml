@@ -1,0 +1,10 @@
+[package]
+name = "rust_websocket_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = "0.23" # Check for the latest version
+futures-util = "0.3"
+url = "2" # For parsing the WebSocket URL on the client side if needed

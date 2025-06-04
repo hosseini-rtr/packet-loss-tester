@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rust WS Test</title>
+</head>
+
+<body>
+    <input type="text" id="msg" placeholder="Send a message" />
+    <button onclick="sendMsg()">Send</button>
+    <div id="output"></div>
+    <script>
+        const output = document.getElementById('output');
+        const msgInput = document.getElementById('msg');
+        // Connect to the address our Rust server is listening on
+        const socket = new WebSocket('ws://127.0.0.1:8080');
+
+        socket.onopen = (event) => {
+            output.innerHTML += "<p>System: Connected to server!</p>";
+        };
+
+        // When we get a message FROM the server
+        socket.onmessage = (event) => {
+            output.innerHTML += `<p>Server: ${event.data}</p>`;
+        };
+
+        socket.onclose = (event) => {
+            output.innerHTML += "<p>System: Disconnected.</p>";
+        };
+
+        socket.onerror = (error) => {
+            output.innerHTML += `<p>System: Error - ${error.message}</p>`;
+        };
+
+        function sendMsg() {
+            const message = msgInput.value;
+            socket.send(message); // Send the message TO the server
+            output.innerHTML += `<p>You: ${message}</p>`;
+            msgInput.value = '';
+        }
+    </script>
+</body>
+
+</html>
