@@ -3,23 +3,19 @@ export interface TestSettings {
   frequency: number;
   duration: number;
   acceptable_delay: number;
-  preset?: "gaming" | "video_call";
   wait_before_recording: boolean;
+  preset?: "custom" | "gaming" | "video_call";
 }
 
 export interface TestResult {
-  timestamp: string;
-  target: string;
-  sent: number;
-  received: number;
-  loss_pct: number;
-  avg_rtt_ms: number;
-  jitter_ms: number;
+  timestamp: number;
+  sequence: number;
+  rtt: number;
 }
 
 export interface TestSession {
   id: string;
   settings: TestSettings;
   results: TestResult[];
-  status: "idle" | "running" | "completed" | "error";
+  status: "running" | "completed";
 }
