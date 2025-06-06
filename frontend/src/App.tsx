@@ -3,7 +3,8 @@ import { TestSettings } from "./components/TestSettings";
 import { usePacketTest } from "./hooks/usePacketTest";
 
 function App() {
-  const { session, error, isRunning, startTest, stopTest } = usePacketTest();
+  const { session, error, isRunning, startTest, stopTest, stats } =
+    usePacketTest();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -52,7 +53,11 @@ function App() {
 
           {session && (
             <div className="relative">
-              <TestResults results={session.results} isRunning={isRunning} />
+              <TestResults
+                results={session.results}
+                isRunning={isRunning}
+                stats={stats}
+              />
 
               {isRunning && (
                 <div className="absolute top-4 right-4">
